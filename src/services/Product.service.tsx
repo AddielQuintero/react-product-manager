@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { TProduct } from '../types'
 
-//const baseURL = 'https://api.escuelajs.co/api/v1/products/55'
-const baseURL = 'http://localhost:3000/data'
+const baseURL = 'https://api.escuelajs.co/api/v1/products'
+//const baseURL = 'http://localhost:3000/data'
 
 export const ProductService = () => {
   const [products, setProducts] = useState<TProduct[]>([])
