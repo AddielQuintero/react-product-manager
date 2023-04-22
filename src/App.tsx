@@ -13,7 +13,7 @@ const navigation: NavigateProps = [
 export default function App() {
   return (
     <div className="flex flex-col justify-between min-h-screen">
-      <BrowserRouter>
+      <HashRouter>
         <AppProvider>
           <Header navigation={navigation}/>
 
@@ -28,7 +28,7 @@ export default function App() {
 
           <Footer navigation={navigation}/>
         </AppProvider>
-      </BrowserRouter>
+      </HashRouter>
     </div>
   )
 }
