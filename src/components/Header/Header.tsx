@@ -1,15 +1,13 @@
-import { useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import { Bars3Icon } from '@heroicons/react/24/outline'
 import { MobileMenu } from './MobileMenu'
 import { CustomButton, CustomLinkList } from '../common'
 import { AuthButton } from './AuthButton'
 import { NavigateProps } from '../../types'
+import { useDialog } from '../../hooks'
 
-export const Header = ({navigation}: { navigation: NavigateProps }) => {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-
-  const handleClose = () => setMobileMenuOpen(false)
+export const Header = ({ navigation }: { navigation: NavigateProps }) => {
+  const { isOpen, openModal, closeModal } = useDialog()
 
   return (
     <header className="relative z-50">
@@ -31,7 +29,7 @@ export const Header = ({navigation}: { navigation: NavigateProps }) => {
           <CustomButton
             type="button"
             className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700"
-            onClick={() => setMobileMenuOpen(true)}
+            onClick={openModal}
           >
             <span className="sr-only">Open main menu</span>
             <Bars3Icon className="h-6 w-6" aria-hidden="true" />
@@ -54,9 +52,9 @@ export const Header = ({navigation}: { navigation: NavigateProps }) => {
 
       <MobileMenu
         navigation={navigation}
-        mobileMenuOpen={mobileMenuOpen}
-        setMobileMenuOpen={() => setMobileMenuOpen(false)}
-        handleClose={handleClose}
+        open={isOpen}
+        onClose={closeModal}
+        closeModal={closeModal}
       />
     </header>
   )
