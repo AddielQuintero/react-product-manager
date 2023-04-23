@@ -1,11 +1,20 @@
 import { useState } from 'react'
 import { ArrowRightOnRectangleIcon } from '@heroicons/react/24/outline'
-import { TAuthConfig, TAuthConfigItem, TPermissions, TUser, DefaultPermissions, getRole} from '../types'
+import {
+  TAuthConfig,
+  TAuthConfigItem,
+  TPermissions,
+  TUser,
+  DefaultPermissions,
+  getRole,
+} from '../types'
 
 const users: TUser[] = [
+  { userName: 'admin', role: 'admin' },
+  { userName: 'user', role: 'student' },
   { userName: 'a', role: 'admin' },
   { userName: 'juandc', role: 'student' },
-  { userName: 'addiel', role: 'editor' },
+  { userName: 'alex', role: 'editor' },
 ]
 
 export const AuthService = () => {

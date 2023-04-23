@@ -11,9 +11,10 @@ export interface HandleClose {
 }
 
 export interface MobileMenuProps extends HandleClose {
-  mobileMenuOpen: boolean
-  setMobileMenuOpen: (value: boolean) => void
+  open: boolean
+  onClose: () => void
   navigation: NavigateProps
+  closeModal: () => void
 }
 
 export interface TLink extends HandleClose {
