@@ -2,20 +2,21 @@ import { NavLink } from 'react-router-dom'
 import { XMarkIcon } from '@heroicons/react/24/outline'
 import { CustomButton, CustomDialog, CustomLinkList } from '../common'
 import { AuthButton } from './AuthButton'
-import { MobileMenuProps } from '../../types'
+import { MobileMenuProps, StylesProps, TransitionProps } from '../../types'
 
 export const MobileMenu = (props: MobileMenuProps) => {
   const { navigation, open, onClose, closeModal } = props
 
-  const styles = {
+  const styles: StylesProps = {
     dialog: '',
-    panel: 'fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10',
+    panel:
+      'fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10',
     title: '',
     content: 'fixed inset-0 z-50',
     backdrop: 'fixed inset-0 bg-black bg-opacity-25',
   }
 
-  const transitionProps = {
+  const transition: TransitionProps = {
     backdrop: {
       enter: 'ease-out duration-300',
       enterFrom: 'opacity-0',
@@ -36,11 +37,11 @@ export const MobileMenu = (props: MobileMenuProps) => {
 
   return (
     <CustomDialog
-      show={open}
+      open={open}
       onClose={onClose}
       className="md:hidden"
       styles={styles}
-      transitionProps={transitionProps}
+      transition={transition}
     >
       <div className="flex items-center justify-between">
         <NavLink to="/" className="-m-1.5 p-1.5" onClick={closeModal}>

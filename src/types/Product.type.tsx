@@ -39,3 +39,23 @@ export const authorizePostActions: authorizePostActionsProps = (
       : false
   return { add, edit, deleted, author }
 }
+
+export interface TFormValues {
+  full_name: string
+  category: string
+  price: number
+  author: string
+  description: string
+}
+
+export const DefaultFormValues = {
+  full_name: '',
+  category: '',
+  price: 0,
+  author: '',
+  description: '',
+}
+
+export interface ProductDialogProps {
+  
+}

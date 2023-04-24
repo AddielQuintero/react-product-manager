@@ -1,5 +1,5 @@
 import { useNavigate, useParams } from 'react-router-dom'
-import { CustomButton, CustomDialog } from '../../components'
+import { CustomButton } from '../../components'
 import { authorizePostActions } from '../../types'
 import { useApp } from '../../context'
 import { NotFound } from '../noFound'
@@ -20,15 +20,6 @@ export const ProductDetails = (): JSX.Element => {
 
   const { edit, deleted, author } = authorizePostActions(app, blogpost)
 
-  // const handleDeleted = (slug: string) => {
-  //   app.products.map((item, index) => {
-  //     if (index > -1 && generateSlug(item.title) === slug) {
-  //       app.handleDeleteProduct(item.id)
-  //     }
-  //   })
-  //   navigate('/product')
-  // }
-
   const handleDelete = (slug: string) => {
     const index = app.products.findIndex(
       (product) => generateSlug(product.title) === slug
@@ -41,14 +32,8 @@ export const ProductDetails = (): JSX.Element => {
 
   const handleUpdate = (slug: string) => {
     openModal()
-    // const index = app.products.findIndex(
-    //   (product) => generateSlug(product.title) === slug
-    // )
-
-    // if (index !== -1) {
-    //   console.log(slug)
-    // }
   }
+
   console.log(authorizePostActions(app, blogpost))
 
   return (
@@ -83,18 +68,18 @@ export const ProductDetails = (): JSX.Element => {
               </div>
               <div className="px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
                 <dt className="text-sm font-medium leading-6 text-gray-900">
-                  Author
-                </dt>
-                <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-                  {blogpost.author || 'Unknown'}
-                </dd>
-              </div>
-              <div className="px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                <dt className="text-sm font-medium leading-6 text-gray-900">
                   Price
                 </dt>
                 <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
                   <span> $ {blogpost.price}</span>
+                </dd>
+              </div>
+              <div className="px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                <dt className="text-sm font-medium leading-6 text-gray-900">
+                  Author
+                </dt>
+                <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
+                  {blogpost.author || 'Unknown'}
                 </dd>
               </div>
               <div className="px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
@@ -111,11 +96,11 @@ export const ProductDetails = (): JSX.Element => {
                 </dt>
                 <dd className="mt-2 flex items-center gap-x-6 sm:col-span-2 sm:mt-0">
                   <CustomButton
-                    onClick={() => handleUpdate(slug)}
+                    onClick={() => navigate('/product')}
                     className="w-[88px] rounded-md bg-gray-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-gray-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-600"
                   >
                     Go back
-                  </CustomButton>{' '}
+                  </CustomButton>
                   {(deleted || author) && (
                     <CustomButton
                       onClick={() => handleDelete(slug)}
@@ -124,14 +109,14 @@ export const ProductDetails = (): JSX.Element => {
                       Delete
                     </CustomButton>
                   )}
-                  {(edit || author) && (
-                    <CustomButton
-                      onClick={() => handleUpdate(slug)}
-                      className="w-[88px] rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                    >
-                      Edit
-                    </CustomButton>
-                  )}
+                  {/* {(edit || author) && ( */}
+                  <CustomButton
+                    onClick={() => handleUpdate(slug)}
+                    className="w-[88px] rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                  >
+                    Edit
+                  </CustomButton>
+                  {/* )} */}
                 </dd>
               </div>
             </dl>

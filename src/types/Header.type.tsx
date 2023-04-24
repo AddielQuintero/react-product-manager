@@ -1,20 +1,20 @@
+import { HookDialogProps } from "./Dialog.type"
+
 export interface TNavigate {
   name: string
   to: string
   private: boolean
 }
 
-export interface NavigateProps extends Array<TNavigate> {}
+export interface NavigateProps extends Array<TNavigate> {
+  navigation: NavigateProps
+}
 
 export interface HandleClose {
   handleClose?: () => void
 }
 
-export interface MobileMenuProps extends HandleClose {
-  open: boolean
-  onClose: () => void
-  navigation: NavigateProps
-  closeModal: () => void
+export interface MobileMenuProps extends HandleClose, NavigateProps, HookDialogProps {
 }
 
 export interface TLink extends HandleClose {
