@@ -3,7 +3,6 @@ import { TProduct } from './Product.type'
 import { DefaultPermissions, TPermissions, TUser } from './User.type'
 
 export interface AppChildrenProps {
-
   children: React.ReactNode
 }
 
@@ -14,7 +13,8 @@ export interface TAppContext {
   products: TProduct[]
   login: (userName: string | null) => void
   logout: () => void
-  handleDeleteProduct: ({ item }: any) => void
+  handleDeleteProduct: (productId: string | number) => void
+  handleUpdateProduct: (updatedProduct: TProduct) => void
 }
 
 export const DefaultContext = {
@@ -25,4 +25,5 @@ export const DefaultContext = {
   login: () => {},
   logout: () => {},
   handleDeleteProduct: () => {},
+  handleUpdateProduct: () => {},
 }

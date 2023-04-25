@@ -1,40 +1,35 @@
-import { useNavigate, useParams } from 'react-router-dom'
-import { CustomButton } from '../../components'
-import { authorizePostActions } from '../../types'
-import { useApp } from '../../context'
-import { NotFound } from '../noFound'
-import { generateSlug } from '../../utils'
-import { useDialog } from '../../hooks'
-import { ProductDialog } from './ProductDialog'
+import { useNavigate, useParams } from "react-router-dom";
+import { CustomButton } from "../../components";
+import { TProduct, AuthorizePostActions } from "../../types";
+import { useApp } from "../../context";
+import { NotFound } from "../noFound";
+import { useDialog } from "../../hooks";
+import { ProductDialog } from "./ProductDialog";
+import { useState } from "react";
 
 export const ProductDetails = (): JSX.Element => {
-  const { isOpen, openModal, closeModal } = useDialog()
-  const { slug } = useParams()
-  const navigate = useNavigate()
-  const app = useApp()
-  const blogpost = app.products.find(
-    (product) => generateSlug(product.title) === slug
-  )
+  const [selectedProduct, setSelectedProduct] = useState<TProduct | null>(null);
+  const { isOpen, openModal, closeModal } = useDialog();
+  const { slug } = useParams();
+  const navigate = useNavigate();
+  const app = useApp();
+  const product = app.products.find((product) => product.slug === slug);
 
-  if (!blogpost || !slug) return <NotFound />
+  if (!product || !slug) return <NotFound />;
 
-  const { edit, deleted, author } = authorizePostActions(app, blogpost)
+  const { edit, deleted, author } = AuthorizePostActions(app, product);
 
-  const handleDelete = (slug: string) => {
-    const index = app.products.findIndex(
-      (product) => generateSlug(product.title) === slug
-    )
-    if (index !== -1) {
-      app.handleDeleteProduct(app.products[index].id)
-      navigate('/product')
-    }
-  }
+  const handleDelete = (id: number) => {
+    app.handleDeleteProduct(id);
+    navigate("/product");
+  };
 
-  const handleUpdate = (slug: string) => {
-    openModal()
-  }
+  const handleUpdate = (product: TProduct) => {
+    setSelectedProduct(product);
+    openModal();
+  };
 
-  console.log(authorizePostActions(app, blogpost))
+  // console.log(authorizePostActions(app, product))
 
   return (
     <>
@@ -55,7 +50,7 @@ export const ProductDetails = (): JSX.Element => {
                   Full name
                 </dt>
                 <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-                  {blogpost.title}
+                  {product.title}
                 </dd>
               </div>
               <div className="px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
@@ -63,7 +58,7 @@ export const ProductDetails = (): JSX.Element => {
                   Category
                 </dt>
                 <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-                  {blogpost.category?.name}
+                  {product.category?.name}
                 </dd>
               </div>
               <div className="px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
@@ -71,7 +66,7 @@ export const ProductDetails = (): JSX.Element => {
                   Price
                 </dt>
                 <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-                  <span> $ {blogpost.price}</span>
+                  <span> $ {product.price}</span>
                 </dd>
               </div>
               <div className="px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
@@ -79,7 +74,7 @@ export const ProductDetails = (): JSX.Element => {
                   Author
                 </dt>
                 <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-                  {blogpost.author || 'Unknown'}
+                  {product.author || "Unknown"}
                 </dd>
               </div>
               <div className="px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
@@ -87,7 +82,7 @@ export const ProductDetails = (): JSX.Element => {
                   Description
                 </dt>
                 <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-                  {blogpost.description}
+                  {product.description}
                 </dd>
               </div>
               <div className="px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
@@ -96,27 +91,27 @@ export const ProductDetails = (): JSX.Element => {
                 </dt>
                 <dd className="mt-2 flex items-center gap-x-6 sm:col-span-2 sm:mt-0">
                   <CustomButton
-                    onClick={() => navigate('/product')}
+                    onClick={() => navigate("/product")}
                     className="w-[88px] rounded-md bg-gray-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-gray-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-600"
                   >
                     Go back
                   </CustomButton>
                   {(deleted || author) && (
                     <CustomButton
-                      onClick={() => handleDelete(slug)}
+                      onClick={() => handleDelete(product.id)}
                       className="w-[88px] rounded-md bg-red-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600"
                     >
                       Delete
                     </CustomButton>
                   )}
-                  {/* {(edit || author) && ( */}
-                  <CustomButton
-                    onClick={() => handleUpdate(slug)}
-                    className="w-[88px] rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                  >
-                    Edit
-                  </CustomButton>
-                  {/* )} */}
+                  {(edit || author) && (
+                    <CustomButton
+                      onClick={() => handleUpdate(product)}
+                      className="w-[88px] rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                    >
+                      Edit
+                    </CustomButton>
+                  )}
                 </dd>
               </div>
             </dl>
@@ -124,10 +119,12 @@ export const ProductDetails = (): JSX.Element => {
         </div>
       </div>
       <ProductDialog
+        product={selectedProduct}
+        setProduct={setSelectedProduct}
         open={isOpen}
         onClose={closeModal}
         closeModal={closeModal}
       />
     </>
-  )
-}
+  );
+};

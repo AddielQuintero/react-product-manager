@@ -1,61 +1,57 @@
 import { Auth } from './Auth.type'
+import { HookDialogProps } from './Dialog.type'
 import { TPermissions } from './User.type'
 
+export interface TCategory {
+  id: number
+  image: string
+  name: string
+  creationAt: Date
+  updatedAt: Date
+}
+
 export interface TProduct {
-  id: string | number
+  id: number
+  slug: string
   author: string
   title: string
   price: number
   description: string
-  category?: TCategory
+  category: TCategory
   images?: string[]
   creationAt?: Date
   updatedAt?: Date
 }
 
-export interface TCategory {
-  creationAt: Date
-  id: number
-  image: string
-  name: string
-  updatedAt: Date
-}
+export type AuthorizePostActionsProps = (auth: Auth, product: TProduct) => TPermissions
 
-export type authorizePostActionsProps = (
-  auth: Auth,
-  blogpost: TProduct
-) => TPermissions
-
-export const authorizePostActions: authorizePostActionsProps = (
-  auth,
-  blogpost
-) => {
+export const AuthorizePostActions: AuthorizePostActionsProps = (auth, product) => {
   const { add, edit, deleted } = auth.permissions
-  // console.log(`author ${blogpost.author}`)
+  // console.log(`author ${product.author}`)
   // console.log(`username ${auth.user?.userName}`)
-  const author =
-    auth.user?.userName && blogpost.author
-      ? auth.user?.userName === blogpost.author
-      : false
+  const author = auth.user?.userName && product.author ? auth.user?.userName === product.author : false
   return { add, edit, deleted, author }
 }
 
 export interface TFormValues {
-  full_name: string
-  category: string
-  price: number
+  // id: number
+  title: string
   author: string
+  price: number
+  categoryName: string
   description: string
 }
 
 export const DefaultFormValues = {
-  full_name: '',
-  category: '',
-  price: 0,
+  // id: 0,
+  title: '',
   author: '',
+  price: 0,
+  categoryName: '',
   description: '',
 }
 
-export interface ProductDialogProps {
-  
+export interface ProductDialogProps extends HookDialogProps {
+  product: TProduct | null
+  setProduct: (value: null) => void
 }
