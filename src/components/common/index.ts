@@ -4,3 +4,4 @@ export * from './TextArea';
 export * from './Dialog';
 export * from './Form';
 export * from './LinkList';
+export * from './Table';

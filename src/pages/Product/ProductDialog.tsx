@@ -1,8 +1,17 @@
 import React, { useState, ChangeEventHandler, useEffect } from 'react'
 import { CustomButton, CustomDialog, CustomForm, CustomInput, CustomTextArea } from '../../components'
-import { DefaultFormValues, StylesProps, TFormValues, TransitionProps, ProductDialogProps, TProduct } from '../../types'
+import {
+  DefaultFormValues,
+  StylesProps,
+  TFormValues,
+  TransitionProps,
+  ProductDialogProps,
+  TSelectCategory,
+  TAddProduct,
+  THandleSubmit,
+} from '../../types'
 import { useApp } from '../../context'
-import { generateSlug } from '../../utils'
+import { generateSlug } from '../../utilities'
 
 const styles: StylesProps = {
   dialog: 'fixed inset-0 overflow-y-auto',
@@ -37,8 +46,10 @@ const inputClassName =
 
 const labelClassName = 'block text-sm font-medium leading-6 text-gray-900'
 
+
+
 export const ProductDialog = (props: ProductDialogProps) => {
-  const { open, onClose, closeModal, product, setProduct } = props
+  const { open, onClose, closeModal, product, setProduct, add } = props
   const [formValues, setFormValues] = useState<TFormValues>(DefaultFormValues)
   const app = useApp()
 
@@ -47,7 +58,9 @@ export const ProductDialog = (props: ProductDialogProps) => {
       product &&
         setFormValues({
           title: product?.title || '',
-          categoryName: product?.category?.name || '',
+          category: {
+            name: product?.category?.name || '',
+          },
           price: product?.price || 0,
           author: product?.author || 'Unknown',
           description: product?.description || '',
@@ -57,10 +70,15 @@ export const ProductDialog = (props: ProductDialogProps) => {
 
   console.log(formValues)
   console.log(product)
+  console.log(DefaultFormValues)
 
   const handleChangeInput: ChangeEventHandler<HTMLInputElement> = (event) => {
     const { name, value } = event.target
-    setFormValues({ ...formValues, [name]: value })
+    if (name === 'categoryName') {
+      setFormValues({ ...formValues, category: { name: value } })
+    } else {
+      setFormValues({ ...formValues, [name]: value })
+    }
   }
 
   const handleChangeTextarea: ChangeEventHandler<HTMLTextAreaElement> = (event) => {
@@ -71,8 +89,40 @@ export const ProductDialog = (props: ProductDialogProps) => {
   const handleOnClose = () => {
     setFormValues(DefaultFormValues)
     closeModal()
-    if (product) {
+    if (setProduct) {
       setProduct(null)
+    }
+  }
+
+  const handleAdd = async (formValues: TAddProduct) => {
+    console.log(formValues)
+    const newProduct = {
+      title: formValues.title,
+      price: formValues.price,
+      description: formValues.description,
+      images: ['https://placeimg.com/640/480/any'],
+      creationAt: new Date(),
+      updatedAt: new Date(),
+      category: {
+        id: 1,
+        name: formValues.category.name,
+        image: 'https://picsum.photos/640/640?r=7647',
+        creationAt: new Date(),
+        updatedAt: new Date(),
+      },
+      author: formValues.author,
+      slug: generateSlug(formValues.title),
+    }
+
+    try {
+      await app.handleAddProduct(newProduct)
+      setFormValues(DefaultFormValues)
+      closeModal()
+      if (setProduct) {
+        setProduct(null)
+      }
+    } catch (error) {
+      console.error(error)
     }
   }
 
@@ -82,24 +132,24 @@ export const ProductDialog = (props: ProductDialogProps) => {
     const updatedProduct = {
       ...product,
       title: formValues.title,
-      slug: generateSlug(formValues.title),
+      price: formValues.price,
+      description: formValues.description,
       category: {
         id: product.category.id,
-        name: formValues.categoryName,
+        name: formValues.category.name,
         image: product.category.image,
         creationAt: product.category.creationAt,
         updatedAt: product.category.updatedAt,
       },
-      price: formValues.price,
       author: formValues.author,
-      description: formValues.description,
+      slug: generateSlug(formValues.title),
     }
 
     try {
       await app.handleUpdateProduct(updatedProduct)
       setFormValues(DefaultFormValues)
       closeModal()
-      if (product) {
+      if (setProduct) {
         setProduct(null)
       }
     } catch (error) {
@@ -107,11 +157,19 @@ export const ProductDialog = (props: ProductDialogProps) => {
     }
   }
 
+  const handleSubmit: THandleSubmit = async (formValues) => {
+    if (add) {
+      await handleAdd(formValues as TAddProduct)
+    } else {
+      await handleUpdate(formValues as TFormValues)
+    }
+  }
+
   return (
     <CustomDialog
       open={open}
       onClose={onClose}
-      title="Edit product"
+      title={add ? 'Add product' : 'Edit product'}
       className="relative z-10"
       styles={styles}
       transition={transition}
@@ -138,7 +196,7 @@ export const ProductDialog = (props: ProductDialogProps) => {
             type="text"
             labelText="Category"
             placeholder="Category"
-            value={formValues.categoryName}
+            value={formValues.category.name}
             onChange={handleChangeInput}
             labelClassName={labelClassName}
             className={inputClassName}
@@ -196,7 +254,7 @@ export const ProductDialog = (props: ProductDialogProps) => {
         <CustomButton
           type="button"
           className="w-[88px] rounded-md bg-green-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600"
-          onClick={() => handleUpdate(formValues)}
+          onClick={() => handleSubmit(formValues)}
         >
           Save
         </CustomButton>

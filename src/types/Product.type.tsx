@@ -2,6 +2,11 @@ import { Auth } from './Auth.type'
 import { HookDialogProps } from './Dialog.type'
 import { TPermissions } from './User.type'
 
+export interface TSelectCategory {
+  id: number
+  name: string
+}
+
 export interface TCategory {
   id: number
   image: string
@@ -10,48 +15,63 @@ export interface TCategory {
   updatedAt: Date
 }
 
-export interface TProduct {
+interface TIdProduct {
   id: number
-  slug: string
-  author: string
+}
+export interface TAddProduct {
   title: string
   price: number
   description: string
-  category: TCategory
   images?: string[]
-  creationAt?: Date
+  category: TCategory
+  creationAt: Date
   updatedAt?: Date
+  author: string
+  slug: string
 }
+
+export interface TProduct extends TIdProduct, TAddProduct {}
 
 export type AuthorizePostActionsProps = (auth: Auth, product: TProduct) => TPermissions
 
 export const AuthorizePostActions: AuthorizePostActionsProps = (auth, product) => {
   const { add, edit, deleted } = auth.permissions
-  // console.log(`author ${product.author}`)
-  // console.log(`username ${auth.user?.userName}`)
   const author = auth.user?.userName && product.author ? auth.user?.userName === product.author : false
   return { add, edit, deleted, author }
 }
 
 export interface TFormValues {
-  // id: number
   title: string
-  author: string
   price: number
-  categoryName: string
   description: string
+  category: {
+    name: string
+  }
+  author: string
+}
+
+export type THandleSubmit = (values: TAddProduct | TFormValues) => void
+
+export interface ProductDialogProps extends HookDialogProps {
+  add?: string
+  product?: TProduct | null
+  setProduct?: (value: null) => void
 }
 
 export const DefaultFormValues = {
-  // id: 0,
   title: '',
-  author: '',
   price: 0,
-  categoryName: '',
   description: '',
+  category: {
+    name: '',
+  },
+  author: '',
 }
 
-export interface ProductDialogProps extends HookDialogProps {
-  product: TProduct | null
-  setProduct: (value: null) => void
-}
+export const categories: TSelectCategory[] = [
+  { id: 1, name: 'Clothes' },
+  { id: 2, name: 'Electronics' },
+  { id: 3, name: 'Furniture' },
+  { id: 4, name: 'Shoes' },
+  { id: 5, name: 'Others' },
+]

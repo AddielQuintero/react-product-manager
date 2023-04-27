@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState } from 'react'
 import { Navigate } from 'react-router-dom'
-import { TAppContext, DefaultContext, AppChildrenProps, TProduct } from '../types'
+import { TAppContext, DefaultContext, AppChildrenProps, TProduct, TAddProduct } from '../types'
 import { AuthService, ProductService } from '../services'
 
 const AppContext = createContext<TAppContext>(DefaultContext)
@@ -8,6 +8,10 @@ const AppContext = createContext<TAppContext>(DefaultContext)
 const AppProvider = ({ children }: AppChildrenProps) => {
   const { user, permissions, AuthConfigItem, login, logout } = AuthService()
   const { products, addProduct, deleteProduct, updateProduct } = ProductService()
+
+  const handleAddProduct = (newProduct: TAddProduct) => {
+    addProduct(newProduct).then()
+  }
 
   const handleDeleteProduct = (productId: string | number) => {
     deleteProduct(productId).then()
@@ -24,6 +28,7 @@ const AppProvider = ({ children }: AppChildrenProps) => {
     AuthConfigItem,
     login,
     logout,
+    handleAddProduct,
     handleDeleteProduct,
     handleUpdateProduct,
   }
