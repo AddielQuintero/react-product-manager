@@ -17,7 +17,7 @@ export const AuthButton = ({ className, handleClose }: TAuthButton) => {
       <div className={className}>
         <NavLink
           to={to}
-          className="text-sm font-semibold leading-6 text-gray-900"
+          className="flex items-center text-sm font-semibold leading-6 text-gray-900"
           onClick={handleMenu}
         >
           {linkText} {icon}

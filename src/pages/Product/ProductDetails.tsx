@@ -1,134 +1,102 @@
 import { useNavigate, useParams } from 'react-router-dom'
-import { CustomButton, CustomDialog } from '../../components'
-import { authorizePostActions } from '../../types'
+import { CustomButton } from '../../components'
+import { TProduct, AuthorizePostActions } from '../../types'
 import { useApp } from '../../context'
 import { NotFound } from '../noFound'
-import { generateSlug } from '../../utils'
 import { useDialog } from '../../hooks'
 import { ProductDialog } from './ProductDialog'
+import { useState } from 'react'
+import { ArrowLongLeftIcon, TrashIcon, PencilSquareIcon } from '@heroicons/react/24/outline'
 
 export const ProductDetails = (): JSX.Element => {
+  const [selectedProduct, setSelectedProduct] = useState<TProduct | null>(null)
   const { isOpen, openModal, closeModal } = useDialog()
   const { slug } = useParams()
   const navigate = useNavigate()
   const app = useApp()
-  const blogpost = app.products.find(
-    (product) => generateSlug(product.title) === slug
-  )
+  const product = app.products.find((product) => product.slug === slug)
+  console.log(useParams())
+  if (!product || !slug) return <NotFound />
 
-  if (!blogpost || !slug) return <NotFound />
+  const { edit, deleted, author } = AuthorizePostActions(app, product)
 
-  const { edit, deleted, author } = authorizePostActions(app, blogpost)
-
-  // const handleDeleted = (slug: string) => {
-  //   app.products.map((item, index) => {
-  //     if (index > -1 && generateSlug(item.title) === slug) {
-  //       app.handleDeleteProduct(item.id)
-  //     }
-  //   })
-  //   navigate('/product')
-  // }
-
-  const handleDelete = (slug: string) => {
-    const index = app.products.findIndex(
-      (product) => generateSlug(product.title) === slug
-    )
-    if (index !== -1) {
-      app.handleDeleteProduct(app.products[index].id)
-      navigate('/product')
-    }
+  const handleDelete = (id: number) => {
+    app.handleDeleteProduct(id)
+    navigate('/product')
   }
 
-  const handleUpdate = (slug: string) => {
+  const handleUpdate = (product: TProduct) => {
+    setSelectedProduct(product)
     openModal()
-    // const index = app.products.findIndex(
-    //   (product) => generateSlug(product.title) === slug
-    // )
-
-    // if (index !== -1) {
-    //   console.log(slug)
-    // }
   }
-  console.log(authorizePostActions(app, blogpost))
+
+  // console.log(authorizePostActions(app, product))
 
   return (
     <>
       <div className="mx-auto max-w-7xl py-8 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-4xl">
           <div className="px-4 sm:px-0">
-            <h3 className="text-base font-semibold leading-7 text-gray-900">
-              Product Information
-            </h3>
-            <p className="mt-1 max-w-2xl text-sm leading-6 text-gray-500">
-              Personal details and Product.
-            </p>
+            <h3 className="text-base font-semibold leading-7 text-gray-900">Product Information</h3>
+            <p className="mt-1 max-w-2xl text-sm leading-6 text-gray-500">Personal details and Product.</p>
           </div>
           <div className="mt-6 border-t border-gray-100">
             <dl className="divide-y divide-gray-100">
               <div className="px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                <dt className="text-sm font-medium leading-6 text-gray-900">
-                  Full name
-                </dt>
+                <dt className="text-sm font-medium leading-6 text-gray-900">Title</dt>
                 <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-                  {blogpost.title}
+                  {product.title}
                 </dd>
               </div>
               <div className="px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                <dt className="text-sm font-medium leading-6 text-gray-900">
-                  Category
-                </dt>
+                <dt className="text-sm font-medium leading-6 text-gray-900">Category</dt>
                 <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-                  {blogpost.category?.name}
+                  {product.category?.name}
                 </dd>
               </div>
               <div className="px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                <dt className="text-sm font-medium leading-6 text-gray-900">
-                  Author
-                </dt>
+                <dt className="text-sm font-medium leading-6 text-gray-900">Price</dt>
                 <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-                  {blogpost.author || 'Unknown'}
+                  <span> $ {product.price}</span>
                 </dd>
               </div>
               <div className="px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                <dt className="text-sm font-medium leading-6 text-gray-900">
-                  Price
-                </dt>
+                <dt className="text-sm font-medium leading-6 text-gray-900">Author</dt>
                 <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-                  <span> $ {blogpost.price}</span>
+                  {product.author || 'Unknown'}
                 </dd>
               </div>
               <div className="px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                <dt className="text-sm font-medium leading-6 text-gray-900">
-                  Description
-                </dt>
+                <dt className="text-sm font-medium leading-6 text-gray-900">Description</dt>
                 <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-                  {blogpost.description}
+                  {product.description}
                 </dd>
               </div>
               <div className="px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                <dt className="text-sm font-medium leading-6 text-gray-900">
-                  Actions
-                </dt>
+                <dt className="text-sm font-medium leading-6 text-gray-900">Actions</dt>
                 <dd className="mt-2 flex items-center gap-x-6 sm:col-span-2 sm:mt-0">
                   <CustomButton
-                    onClick={() => handleUpdate(slug)}
-                    className="w-[88px] rounded-md bg-gray-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-gray-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-600"
+                    onClick={() => navigate('/product')}
+                    className="flex justify-center items-center gap-1 w-[105px] rounded-md bg-gray-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-gray-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-600"
                   >
+                    <ArrowLongLeftIcon className="h-4 w-auto inline-block" aria-hidden="true" />
                     Go back
-                  </CustomButton>{' '}
+                  </CustomButton>
                   {(deleted || author) && (
                     <CustomButton
-                      onClick={() => handleDelete(slug)}
-                      className="w-[88px] rounded-md bg-red-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600"
+                      onClick={() => handleDelete(product.id)}
+                      className="flex justify-center items-center gap-1 w-[105px] rounded-md bg-red-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600"
                     >
+                      <TrashIcon className="h-4 w-auto inline-block" aria-hidden="true" />
                       Delete
                     </CustomButton>
                   )}
                   {(edit || author) && (
                     <CustomButton
-                      onClick={() => handleUpdate(slug)}
-                      className="w-[88px] rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                      onClick={() => handleUpdate(product)}
+                      className="flex justify-center items-center gap-1 w-[105px] rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                     >
+                      <PencilSquareIcon  className="h-4 w-auto inline-block" aria-hidden="true" />
                       Edit
                     </CustomButton>
                   )}
@@ -139,6 +107,8 @@ export const ProductDetails = (): JSX.Element => {
         </div>
       </div>
       <ProductDialog
+        product={selectedProduct}
+        setProduct={setSelectedProduct}
         open={isOpen}
         onClose={closeModal}
         closeModal={closeModal}

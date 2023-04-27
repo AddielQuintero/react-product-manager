@@ -1,3 +1,5 @@
+import { HookDialogProps } from './Dialog.type'
+
 export interface TNavigate {
   name: string
   to: string
@@ -10,18 +12,13 @@ export interface HandleClose {
   handleClose?: () => void
 }
 
-export interface MobileMenuProps extends HandleClose {
-  open: boolean
-  onClose: () => void
+export interface MobileMenuProps extends HandleClose, HookDialogProps {
   navigation: NavigateProps
-  closeModal: () => void
 }
 
 export interface TLink extends HandleClose {
   children?: React.ReactNode
-  className?:
-    | string
-    | ((props: { isActive: boolean; isPending: boolean }) => string)
+  className?: string | ((props: { isActive: boolean; isPending: boolean }) => string)
   navigation: NavigateProps
 }
 

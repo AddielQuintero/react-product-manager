@@ -15,18 +15,18 @@ export default function App() {
     <div className="flex flex-col justify-between min-h-screen">
       <HashRouter>
         <AppProvider>
-          <Header navigation={navigation}/>
+          <Header navigation={navigation} />
 
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/product" element={<Product />} />
             <Route path="/product/:slug" element={<ProductDetails />} />
-            <Route path="/profile" element={<AuthRoute><Profile /></AuthRoute> } />
+            <Route path="/profile" element={<AuthRoute><Profile /></AuthRoute>}/>
             <Route path="*" element={<NotFound />} />
           </Routes>
 
-          <Footer navigation={navigation}/>
+          <Footer navigation={navigation} />
         </AppProvider>
       </HashRouter>
     </div>

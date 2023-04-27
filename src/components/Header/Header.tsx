@@ -11,10 +11,7 @@ export const Header = ({ navigation }: { navigation: NavigateProps }) => {
 
   return (
     <header className="relative z-50">
-      <nav
-        className="flex items-center justify-between p-6 lg:px-8"
-        aria-label="Global"
-      >
+      <nav className="flex items-center justify-between p-6 lg:px-8" aria-label="Global">
         <div className="flex md:flex-1">
           <NavLink to="/" className="-m-1.5 p-1.5">
             <span className="sr-only">Your Company</span>
@@ -50,12 +47,7 @@ export const Header = ({ navigation }: { navigation: NavigateProps }) => {
         <AuthButton className="hidden md:flex md:flex-1 md:justify-end" />
       </nav>
 
-      <MobileMenu
-        navigation={navigation}
-        open={isOpen}
-        onClose={closeModal}
-        closeModal={closeModal}
-      />
+      <MobileMenu navigation={navigation} open={isOpen} onClose={closeModal} closeModal={closeModal} />
     </header>
   )
 }
