@@ -12,7 +12,7 @@ export const Login = () => {
   const handleSubmit: FormEventHandler<HTMLFormElement> = (event) => {
     event.preventDefault()
     app.login(userName)
-    navigate('/profile')
+    navigate('/product')
   }
 
   const handleChangeInputUser: ChangeEventHandler<HTMLInputElement> = ({
