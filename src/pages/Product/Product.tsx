@@ -1,5 +1,5 @@
 import { useApp } from '../../context'
-import { CustomButton, CustomTable } from '../../components'
+import { CustomButton, CustomSnackBar, CustomTable } from '../../components'
 import { PlusSmallIcon, FunnelIcon } from '@heroicons/react/24/outline'
 import { ProductDialog } from './ProductDialog'
 import { useDialog } from '../../hooks'
@@ -20,6 +20,7 @@ export const Product = () => {
   return (
     <>
       <section className="container lg:w-3/4 px-4 mx-auto ">
+        {/* <CustomSnackBar /> */}
         <div className="flex justify-between  mb-8 py-4 border-b border-gray-200">
           <h1 className=" text-3xl sm:text-5xl font-bold tracking-tight text-gray-900 ">Products</h1>
           <div className="flex items-end gap-x-6 flex-shrink-0">
@@ -41,7 +42,7 @@ export const Product = () => {
         </div>
       </section>
 
-      <ProductDialog add='add' open={isOpen} onClose={closeModal} closeModal={closeModal} />
+      <ProductDialog add="add" open={isOpen} onClose={closeModal} closeModal={closeModal} />
     </>
   )
 }

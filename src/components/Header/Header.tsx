@@ -10,7 +10,7 @@ export const Header = ({ navigation }: { navigation: NavigateProps }) => {
   const { isOpen, openModal, closeModal } = useDialog()
 
   return (
-    <header className="relative z-50">
+    <header className="relative z-10">
       <nav className="flex items-center justify-between p-6 lg:px-8" aria-label="Global">
         <div className="flex md:flex-1">
           <NavLink to="/" className="-m-1.5 p-1.5">
