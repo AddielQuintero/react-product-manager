@@ -1,5 +1,5 @@
 import { useApp } from '../../context'
-import { CustomButton, CustomTable } from '../../components'
+import { CustomButton, CustomSnackBar, CustomTable } from '../../components'
 import { PlusSmallIcon, FunnelIcon } from '@heroicons/react/24/outline'
 import { ProductDialog } from './ProductDialog'
 import { useDialog } from '../../hooks'
@@ -8,7 +8,15 @@ export const Product = () => {
   const { isOpen, openModal, closeModal } = useDialog()
   const app = useApp()
 
-  const headers = ['ID', 'Title', 'Date', 'Price', 'Category', 'Author', 'Actions']
+  const headers = [
+    { name: 'ID', hideOnMobile: true },
+    { name: 'Title', hideOnMobile: false },
+    { name: 'Date', hideOnMobile: true },
+    { name: 'Price', hideOnMobile: false },
+    { name: 'Category', hideOnMobile: false },
+    { name: 'Author', hideOnMobile: true },
+    { name: 'Action', hideOnMobile: false },
+  ]
   // console.log(auth.products)
   const products = app.products
 
@@ -19,7 +27,7 @@ export const Product = () => {
 
   return (
     <>
-      <section className="container lg:w-3/4 px-4 mx-auto ">
+      <section className="container lg:w-4/5 px-4 mx-auto ">
         <div className="flex justify-between  mb-8 py-4 border-b border-gray-200">
           <h1 className=" text-3xl sm:text-5xl font-bold tracking-tight text-gray-900 ">Products</h1>
           <div className="flex items-end gap-x-6 flex-shrink-0">
@@ -41,7 +49,7 @@ export const Product = () => {
         </div>
       </section>
 
-      <ProductDialog add='add' open={isOpen} onClose={closeModal} closeModal={closeModal} />
+      <ProductDialog add="add" open={isOpen} onClose={closeModal} closeModal={closeModal} />
     </>
   )
 }

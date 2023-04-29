@@ -11,7 +11,7 @@ export interface TAppContext {
   permissions: TPermissions
   AuthConfigItem: TAuthConfigItem
   products: TProduct[]
-  login: (userName: string | null) => void
+  login: (userName: string) => void
   logout: () => void
   handleAddProduct: (newProduct: TAddProduct) => void
   handleDeleteProduct: (productId: string | number) => void

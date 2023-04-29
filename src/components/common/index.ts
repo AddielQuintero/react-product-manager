@@ -5,3 +5,4 @@ export * from './Dialog';
 export * from './Form';
 export * from './LinkList';
 export * from './Table';
+export * from './SnackBar';

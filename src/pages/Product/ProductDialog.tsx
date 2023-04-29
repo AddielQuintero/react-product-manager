@@ -46,8 +46,6 @@ const inputClassName =
 
 const labelClassName = 'block text-sm font-medium leading-6 text-gray-900'
 
-
-
 export const ProductDialog = (props: ProductDialogProps) => {
   const { open, onClose, closeModal, product, setProduct, add } = props
   const [formValues, setFormValues] = useState<TFormValues>(DefaultFormValues)
@@ -68,9 +66,9 @@ export const ProductDialog = (props: ProductDialogProps) => {
     }
   }, [product])
 
-  console.log(formValues)
-  console.log(product)
-  console.log(DefaultFormValues)
+  // console.log(formValues)
+  // console.log(product)
+  // console.log(DefaultFormValues)
 
   const handleChangeInput: ChangeEventHandler<HTMLInputElement> = (event) => {
     const { name, value } = event.target
@@ -95,7 +93,7 @@ export const ProductDialog = (props: ProductDialogProps) => {
   }
 
   const handleAdd = async (formValues: TAddProduct) => {
-    console.log(formValues)
+    // console.log(formValues)
     const newProduct = {
       title: formValues.title,
       price: formValues.price,

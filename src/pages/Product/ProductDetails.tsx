@@ -15,7 +15,7 @@ export const ProductDetails = (): JSX.Element => {
   const navigate = useNavigate()
   const app = useApp()
   const product = app.products.find((product) => product.slug === slug)
-  console.log(useParams())
+  // console.log(auth)
   if (!product || !slug) return <NotFound />
 
   const { edit, deleted, author } = AuthorizePostActions(app, product)
@@ -30,7 +30,7 @@ export const ProductDetails = (): JSX.Element => {
     openModal()
   }
 
-  // console.log(authorizePostActions(app, product))
+  // console.log(AuthorizePostActions(app, product))
 
   return (
     <>

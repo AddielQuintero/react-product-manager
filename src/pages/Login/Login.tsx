@@ -1,28 +1,35 @@
 import { FormEventHandler, ChangeEventHandler, useState } from 'react'
-import { Navigate, useNavigate } from 'react-router-dom'
+import { Navigate, useNavigate, useLocation } from 'react-router-dom'
 import { LockClosedIcon } from '@heroicons/react/20/solid'
-import { CustomButton, CustomInput } from '../../components'
+import { CustomButton, CustomInput, CustomSnackBar } from '../../components'
 import { useApp } from '../../context'
+import { toast } from 'react-toastify'
 
 export const Login = () => {
   const [userName, setUserName] = useState('')
+  const [password, setPassword] = useState('')
   const navigate = useNavigate()
+  const location = useLocation()
   const app = useApp()
+  console.log(location)
 
-  const handleSubmit: FormEventHandler<HTMLFormElement> = (event) => {
+  const handleSubmit: FormEventHandler<HTMLFormElement> = async (event) => {
     event.preventDefault()
-    app.login(userName)
-    navigate('/product')
+    try {
+      await app.login(userName)
+      // console.log(await app.login(userName))
+      navigate(location.state?.prevUrl ?? -1, { replace: true })
+    } catch (error) {
+      console.error(`LoginError: ${error}`)
+      toast.error('Credenciales inválidas', {})
+    }
   }
 
-  const handleChangeInputUser: ChangeEventHandler<HTMLInputElement> = ({
-    target,
-  }) => {
+  const handleChangeInputUser: ChangeEventHandler<HTMLInputElement> = ({ target }) => {
     setUserName(target.value)
   }
   // console.log(auth?.user?.userName)
-
-  if (app.user) return <Navigate to="/profile" />
+  // if (app.user) return <Navigate to="/profile" />
 
   return (
     <>
@@ -33,12 +40,7 @@ export const Login = () => {
               Login in to your account
             </h2>
           </div>
-          <form
-            className="mt-8 space-y-6"
-            action="#"
-            method="POST"
-            onSubmit={handleSubmit}
-          >
+          <form className="mt-8 space-y-6" action="#" method="POST" onSubmit={handleSubmit}>
             <div className="-space-y-px rounded-md shadow-sm">
               <div>
                 <label htmlFor="email-address" className="sr-only">
@@ -73,6 +75,7 @@ export const Login = () => {
           </form>
         </div>
       </div>
+      <CustomSnackBar />
     </>
   )
 }

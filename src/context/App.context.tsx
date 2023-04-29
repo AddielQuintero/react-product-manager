@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from 'react'
-import { Navigate } from 'react-router-dom'
+import { Navigate, useLocation } from 'react-router-dom'
 import { TAppContext, DefaultContext, AppChildrenProps, TProduct, TAddProduct } from '../types'
 import { AuthService, ProductService } from '../services'
 
@@ -44,8 +44,13 @@ const useApp = (): TAppContext => {
 }
 
 const AuthRoute = ({ children }: AppChildrenProps) => {
+  const location = useLocation()
   const app = useApp()
-  return !app?.user ? <Navigate to="/login" /> : <>{children}</>
+  return !app?.user ? (
+    <Navigate to="/login" state={{ prevUrl: location.pathname }} replace />
+  ) : (
+    <>{children}</>
+  )
 }
 
 export { AppProvider, useApp, AuthRoute }
