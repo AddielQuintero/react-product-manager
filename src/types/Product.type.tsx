@@ -30,6 +30,16 @@ export interface TAddProduct {
   slug: string
 }
 
+interface THeaders {
+  name: string
+  hideOnMobile: boolean
+}
+
+export interface CustomTableProps {
+  headers: THeaders[]
+  data: TProduct[]
+}
+
 export interface TProduct extends TIdProduct, TAddProduct {}
 
 export type AuthorizePostActionsProps = (auth: Auth, product: TProduct) => TPermissions

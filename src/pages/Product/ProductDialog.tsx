@@ -66,9 +66,9 @@ export const ProductDialog = (props: ProductDialogProps) => {
     }
   }, [product])
 
-  console.log(formValues)
-  console.log(product)
-  console.log(DefaultFormValues)
+  // console.log(formValues)
+  // console.log(product)
+  // console.log(DefaultFormValues)
 
   const handleChangeInput: ChangeEventHandler<HTMLInputElement> = (event) => {
     const { name, value } = event.target
@@ -93,7 +93,7 @@ export const ProductDialog = (props: ProductDialogProps) => {
   }
 
   const handleAdd = async (formValues: TAddProduct) => {
-    console.log(formValues)
+    // console.log(formValues)
     const newProduct = {
       title: formValues.title,
       price: formValues.price,

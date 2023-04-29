@@ -6,13 +6,9 @@ import {
   ArrowTopRightOnSquareIcon,
 } from '@heroicons/react/24/outline'
 import { FormatDate } from '../../utilities'
-import { TProduct } from '../../types'
+import { CustomTableProps, TProduct } from '../../types'
 import { Link } from 'react-router-dom'
 
-type CustomTableProps = {
-  headers: string[]
-  data: TProduct[]
-}
 
 export const CustomTable = ({ headers, data }: CustomTableProps) => {
   // const createdAtDate = new Date(product.creationAt);
@@ -27,11 +23,11 @@ export const CustomTable = ({ headers, data }: CustomTableProps) => {
                 <tr>
                   {headers.map((header) => (
                     <th
-                      key={header}
+                      key={header.name}
                       scope="col"
-                      className="px-4 py-3.5 text-sm font-bold text-left rtl:text-right text-gray-500"
+                      className={`${header.hideOnMobile ? 'hidden lg:table-cell ': '' } px-1 md:px-2 lg:px-3 py-3.5 text-sm font-bold text-left rtl:text-right whitespace-nowrap text-gray-500 `}
                     >
-                      {header}
+                      {header.name}
                     </th>
                   ))}
                 </tr>
@@ -39,23 +35,25 @@ export const CustomTable = ({ headers, data }: CustomTableProps) => {
               <tbody className="bg-white divide-y divide-gray-200 ">
                 {data.map((product: TProduct) => (
                   <tr key={product.id}>
-                    <td className="px-4 py-2 text-sm text-gray-400 whitespace-nowrap">{product.id}</td>
-                    <td className="px-4 py-2 text-sm text-gray-400 whitespace-nowrap ">
+                    <td className="px-1 md:px-2 lg:px-3 py-2 text-sm text-gray-400 whitespace-nowrap hidden lg:table-cell">
+                      {product.id}
+                    </td>
+                    <td className="px-1 md:px-2 lg:px-3 py-2 text-sm text-gray-400 whitespace-nowrap ">
                       {/* <Link to={product.slug}>{product.title}</Link> */}
                       {product.title}
                     </td>
-                    <td className="px-4 py-2 text-sm text-gray-400 whitespace-nowrap">
+                    <td className="px-1 md:px-2 lg:px-3 py-2 text-sm text-gray-400 whitespace-nowrap hidden lg:table-cell">
                       {FormatDate(product.creationAt)}
                     </td>
-                    <td className="px-4 py-2 text-sm font-medium text-gray-700 whitespace-nowrap">
-                      <div className="inline-flex items-center px-3 py-1 rounded-full gap-x-2 text-emerald-500 bg-emerald-100/60">
+                    <td className="px-1 md:px-2 lg:px-3 py-2 text-sm font-medium text-gray-700 whitespace-nowrap">
+                      <div className="inline-flex items-center px-3 py-1 rounded-full gap-x-1 text-emerald-500 bg-emerald-100/60">
                         $<h2 className="text-sm font-normal">{product.price}</h2>
                       </div>
                     </td>
-                    <td className="px-4 py-2 text-sm text-gray-400 whitespace-nowrap">
+                    <td className="px-1 md:px-2 lg:px-3 py-2 text-sm text-gray-400 whitespace-nowrap">
                       {product.category.name}
                     </td>
-                    <td className="px-4 py-2 text-sm text-gray-400 whitespace-nowrap">
+                    <td className="px-1 md:px-2 lg:px-3 py-2 text-sm text-gray-400 whitespace-nowrap hidden lg:table-cell">
                       <div className="flex items-center gap-x-2">
                         <UserCircleIcon className="h-10 w-10" aria-hidden="true" />
                         <div>
@@ -66,10 +64,10 @@ export const CustomTable = ({ headers, data }: CustomTableProps) => {
                         </div>
                       </div>
                     </td>
-                    <td className="px-4 py-2 text-sm text-gray-800 whitespace-nowrap">
+                    <td className="px-1 md:px-2 lg:px-3 py-2 text-sm text-gray-500 whitespace-nowrap">
                       <div className="flex items-center gap-x-2">
                         <Link to={product.slug}>
-                          <ArrowTopRightOnSquareIcon className="h-6 w-6" aria-hidden="true" />
+                          <ArrowTopRightOnSquareIcon className="h-5 w-6" aria-hidden="true" />
                         </Link>
                       </div>
                     </td>

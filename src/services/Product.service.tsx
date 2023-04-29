@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { TAddProduct, TProduct } from '../types'
+import { CustomSnackBar } from '../components'
 
-// const baseURL = 'https://api.escuelajs.co/api/v1/products'
-// const baseURL = 'http://localhost:3000/data'
-const baseURL = 'https://api-json-server-omega.vercel.app/data'
+const BASE_URL = 'http://localhost:3000/data'
+// const BASE_URL = 'https://api-json-server-omega.vercel.app/data'
 
 export const ProductService = () => {
   const [products, setProducts] = useState<TProduct[]>([])
@@ -12,7 +12,8 @@ export const ProductService = () => {
   useEffect(() => {
     const getProducts = async () => {
       try {
-        const { data } = await axios.get(`${baseURL}?_page=1&_limit=5`)
+        // const { data } = await axios.get(`${baseURL}?_page=1&_limit=5`)
+        const { data } = await axios.get(`${BASE_URL}?_page=46&_limit=5`)
         setProducts(data)
       } catch (error) {
         console.error(`mi error ${error}`)
@@ -24,35 +25,32 @@ export const ProductService = () => {
 
   const addProduct = async (newProduct: TAddProduct) => {
     try {
-      const { data } = await axios.post(baseURL, newProduct)
-      console.log(`añadi un product: ${newProduct}`)
+      const { data } = await axios.post(BASE_URL, newProduct)
       setProducts([...products, data])
+      console.log(`se añadió el product correctamente: ${newProduct}`)
     } catch (error) {
-      console.error('Error al agregar el producto:', error);
-      const alerta = document.createElement('div');
-      alerta.classList.add('bg-black', 'text-white', 'py-4', 'px-4', 'fixed', 'bottom-0', 'left-0', 'right-0', 'z-10');
-      alerta.textContent = 'Hubo un error al agregar el producto. Por favor inténtelo de nuevo más tarde.';
-      document.body.appendChild(alerta);
+      console.error('Error al agregar el producto:', error)
     }
   }
 
   const deleteProduct = async (productId: string | number) => {
     try {
-      await axios.delete(`${baseURL}/${productId}`)
+      await axios.delete(`${BASE_URL}/${productId}`)
       setProducts(products.filter((product) => product.id !== productId))
     } catch (error) {
       console.error(error)
     }
   }
 
-  const updateProduct = async (updatedProduct: TProduct): Promise<void> => {
+  const updateProduct = async (updatedProduct: TProduct) => {
     try {
-      const { data } = await axios.put(`${baseURL}/${updatedProduct.id}`, updatedProduct)
+      const { data } = await axios.put(`${BASE_URL}/${updatedProduct.id}`, updatedProduct)
       setProducts((prevState) =>
         prevState.map((product) => (product.id === updatedProduct.id ? data : product))
       )
+      console.log(`se actualizo el product correctamente: `)
     } catch (error) {
-      console.error(error)
+      console.error('Error al actualizar el producto:', error)
     }
   }
 
