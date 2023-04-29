@@ -1,5 +1,6 @@
 export interface TUser {
-  userName: string | null
+  id: number
+  userName: string | null 
   role: 'admin' | 'editor' | 'student'
 }
 
@@ -35,6 +36,8 @@ export const permissions: Record<TUser['role'], TPermissions> = {
   },
 }
 
-export function getRole(user: TUser): TPermissions {
+export function verifyPermission(user: TUser): TPermissions {
+  console.log(user)
+  console.log(permissions[user.role])
   return permissions[user.role]
 }
