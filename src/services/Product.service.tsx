@@ -3,8 +3,8 @@ import axios from 'axios'
 import { TAddProduct, TProduct } from '../types'
 import { CustomSnackBar } from '../components'
 
-const BASE_URL = 'http://localhost:3000/data'
-// const BASE_URL = 'https://api-json-server-omega.vercel.app/data'
+// const BASE_URL = 'http://localhost:3000/data'
+const BASE_URL = 'https://api-json-server-omega.vercel.app/data'
 
 export const ProductService = () => {
   const [products, setProducts] = useState<TProduct[]>([])
