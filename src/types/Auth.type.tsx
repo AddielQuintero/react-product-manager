@@ -23,6 +23,6 @@ export interface Auth {
   user: TUser | null
   permissions: TPermissions
   AuthConfigItem: TAuthConfigItem
-  login: (userName: string | null) => void
+  login: (userName: string) => void
   logout: () => void
 }

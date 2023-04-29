@@ -1,30 +1,38 @@
 import { useState } from 'react'
 import { ArrowRightOnRectangleIcon } from '@heroicons/react/24/outline'
-import { TAuthConfig, TAuthConfigItem, TPermissions, TUser, DefaultPermissions, getRole } from '../types'
-
-const users: TUser[] = [
-  { userName: 'admin', role: 'admin' },
-  { userName: 'user', role: 'student' },
-  { userName: 'a', role: 'admin' },
-  { userName: 'juandc', role: 'student' },
-  { userName: 'alex', role: 'editor' },
-]
+import UserService from './User.service'
+import {
+  TAuthConfig,
+  TAuthConfigItem,
+  TPermissions,
+  TUser,
+  DefaultPermissions,
+  verifyPermission,
+} from '../types'
 
 export const AuthService = () => {
   const [user, setUser] = useState<TUser | null>(null)
   const [permissions, setPermissions] = useState<TPermissions>(DefaultPermissions)
 
-  const login = (userName: string | null) => {
-    const user = users.find((user) => user.userName === userName)
-    if (user) {
-      const permission = getRole(user)
-      setPermissions(permission)
-      setUser(user)
+  const login = async (userName: string) => {
+    try {
+      const user: TUser = await UserService.getUser(userName)
+      // console.log(user)
+      if (user.userName === userName) {
+        const permission = verifyPermission(user)
+        // console.log(permission)
+        setPermissions(permission)
+        setUser(user)
+      }
+    } catch (error) {
+      console.error(`authError: ${error}`)
+      throw new Error('Invalid credentials')
     }
   }
 
   const logout = () => {
     setUser(null)
+    setPermissions(DefaultPermissions)
   }
 
   const AuthConfig: TAuthConfig = {
@@ -53,6 +61,7 @@ export const AuthService = () => {
   //   logout,
   // }
 
+  // console.log(auth)
   // return auth
   return { user, permissions, AuthConfigItem, login, logout }
 }
