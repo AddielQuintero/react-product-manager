@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { TUser } from '../types'
 import axios from 'axios'
 
-const BASE_URL = 'http://localhost:3000/users'
+// const BASE_URL = 'http://localhost:3000/users'
+const BASE_URL = 'https://json-server-router-dom.herokuapp.com/users'
 
 class UserService {
   async getUser(userName: string): Promise<TUser> {

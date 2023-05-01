@@ -4,7 +4,7 @@ import { TAddProduct, TProduct } from '../types'
 import { CustomSnackBar } from '../components'
 
 // const BASE_URL = 'http://localhost:3000/data'
-const BASE_URL = 'https://api-json-server-omega.vercel.app/data'
+const BASE_URL = 'https://json-server-router-dom.herokuapp.com/data'
 
 export const ProductService = () => {
   const [products, setProducts] = useState<TProduct[]>([])
@@ -12,7 +12,7 @@ export const ProductService = () => {
   useEffect(() => {
     const getProducts = async () => {
       try {
-        // const { data } = await axios.get(`${baseURL}?_page=1&_limit=5`)
+        // const { data } = await axios.get(`${BASE_URL}?_page=1&_limit=5`)
         const { data } = await axios.get(`${BASE_URL}?_page=46&_limit=5`)
         setProducts(data)
       } catch (error) {
