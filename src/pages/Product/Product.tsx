@@ -6,7 +6,7 @@ import { useDialog } from '../../hooks'
 
 export const Product = () => {
   const { isOpen, openModal, closeModal } = useDialog()
-  const app = useApp()
+  const { products } = useApp()
 
   const headers = [
     { name: 'ID', hideOnMobile: true },
@@ -17,11 +17,9 @@ export const Product = () => {
     { name: 'Author', hideOnMobile: true },
     { name: 'Action', hideOnMobile: false },
   ]
-  // console.log(auth.products)
-  const products = app.products
 
   // console.log(products)
-  const handleAddproduct = () => {
+  const handleAddProduct = () => {
     openModal()
   }
 
@@ -36,7 +34,7 @@ export const Product = () => {
               Filter
             </CustomButton>
             <CustomButton
-              onClick={handleAddproduct}
+              onClick={handleAddProduct}
               className="flex justify-center items-center gap-1 w-[105px] rounded-md bg-green-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600"
             >
               <PlusSmallIcon className="h-5 w-auto inline-block" aria-hidden="true" />
