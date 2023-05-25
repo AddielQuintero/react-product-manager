@@ -1,10 +1,9 @@
 import { useNavigate, useParams } from 'react-router-dom'
-import { CustomButton } from '../../components'
+import { CustomButton, ProductDialog } from '..'
 import { TProduct, AuthorizePostActions } from '../../types'
 import { useApp } from '../../context'
-import { NotFound } from '../noFound'
+import { NotFound } from '../../pages/noFound'
 import { useDialog } from '../../hooks'
-import { ProductDialog } from './ProductDialog'
 import { useState } from 'react'
 import { ArrowLongLeftIcon, TrashIcon, PencilSquareIcon } from '@heroicons/react/24/outline'
 

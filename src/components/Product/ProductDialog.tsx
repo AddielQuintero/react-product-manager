@@ -1,5 +1,5 @@
 import React, { useState, ChangeEventHandler, useEffect } from 'react'
-import { CustomButton, CustomDialog, CustomForm, CustomInput, CustomTextArea } from '../../components'
+import { CustomButton, CustomDialog, CustomForm, CustomInput, CustomTextArea } from '..'
 import {
   DefaultFormValues,
   StylesProps,
