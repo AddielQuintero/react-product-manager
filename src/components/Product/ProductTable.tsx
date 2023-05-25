@@ -1,16 +1,9 @@
-import React from 'react'
-import {
-  ArrowLongLeftIcon,
-  ArrowLongRightIcon,
-  UserCircleIcon,
-  ArrowTopRightOnSquareIcon,
-} from '@heroicons/react/24/outline'
-import { FormatDate } from '../../utilities'
-import { CustomTableProps, TProduct } from '../../types'
+import { ArrowLongLeftIcon, ArrowLongRightIcon, UserCircleIcon, ArrowTopRightOnSquareIcon } from '@heroicons/react/24/outline'
 import { Link } from 'react-router-dom'
+import { CustomTableProps, TProduct } from '../../types'
+import { FormatDate } from '../../utilities'
 
-
-export const CustomTable = ({ headers, data }: CustomTableProps) => {
+export const ProductTable = ({ headers, data }: CustomTableProps) => {
   // const createdAtDate = new Date(product.creationAt);
 
   return (
@@ -25,7 +18,9 @@ export const CustomTable = ({ headers, data }: CustomTableProps) => {
                     <th
                       key={header.name}
                       scope="col"
-                      className={`${header.hideOnMobile ? 'hidden lg:table-cell ': '' } px-1 md:px-2 lg:px-3 py-3.5 text-sm font-bold text-left rtl:text-right whitespace-nowrap text-gray-500 `}
+                      className={`${
+                        header.hideOnMobile ? 'hidden lg:table-cell ' : ''
+                      } px-1 md:px-2 lg:px-3 py-3.5 text-sm font-bold text-left rtl:text-right whitespace-nowrap text-gray-500 `}
                     >
                       {header.name}
                     </th>

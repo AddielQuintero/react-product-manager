@@ -1,7 +1,7 @@
 import { useApp } from '../../context'
-import { CustomButton, CustomSnackBar, CustomTable } from '../../components'
+import { CustomButton, ProductTable } from '../../components'
 import { PlusSmallIcon, FunnelIcon } from '@heroicons/react/24/outline'
-import { ProductDialog } from './ProductDialog'
+import { ProductDialog } from '../../components/Product/ProductDialog'
 import { useDialog } from '../../hooks'
 
 export const Product = () => {
@@ -43,7 +43,7 @@ export const Product = () => {
           </div>
         </div>
         <div>
-          <CustomTable headers={headers} data={products} />
+          <ProductTable headers={headers} data={products} />
         </div>
       </section>
 
