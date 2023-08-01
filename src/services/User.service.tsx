@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { TUser } from '../types'
+import { TUser } from '@/types'
 import axios from 'axios'
 
 // const BASE_URL = 'http://localhost:3000/users'

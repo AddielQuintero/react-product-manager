@@ -1,11 +1,11 @@
-import { useNavigate, useParams } from 'react-router-dom'
-import { CustomButton, ProductDialog } from '..'
-import { TProduct, AuthorizePostActions } from '../../types'
-import { useApp } from '../../context'
-import { NotFound } from '../../pages/noFound'
-import { useDialog } from '../../hooks'
 import { useState } from 'react'
+import { useNavigate, useParams } from 'react-router-dom'
 import { ArrowLongLeftIcon, TrashIcon, PencilSquareIcon } from '@heroicons/react/24/outline'
+import { CustomButton, ProductDialog } from '@/components'
+import { TProduct, AuthorizePostActions } from '@/types'
+import { useApp } from '@/context'
+import { NotFound } from '@/pages'
+import { useDialog } from '@/hooks'
 
 export const ProductDetails = (): JSX.Element => {
   const [selectedProduct, setSelectedProduct] = useState<TProduct | null>(null)

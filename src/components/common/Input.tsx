@@ -1,7 +1,4 @@
-type InputProps = React.InputHTMLAttributes<HTMLInputElement> & {
-  labelText?: string
-  labelClassName?: string
-}
+import { InputProps } from "@/types"
 
 export const CustomInput = (props: InputProps): JSX.Element => {
   // console.log(`dentro del input: ${props.value}`)

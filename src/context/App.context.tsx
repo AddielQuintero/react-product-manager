@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useState } from 'react'
 import { Navigate, useLocation } from 'react-router-dom'
-import { TAppContext, DefaultContext, AppChildrenProps, TProduct, TAddProduct } from '../types'
-import { AuthService, ProductService } from '../services'
+import { TAppContext, DefaultContext, AppChildrenProps, TProduct, TAddProduct } from '@/types'
+import { AuthService, ProductService } from '@/services'
 
 const AppContext = createContext<TAppContext>(DefaultContext)
 

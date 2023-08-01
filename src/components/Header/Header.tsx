@@ -1,10 +1,8 @@
 import { NavLink } from 'react-router-dom'
 import { Bars3Icon } from '@heroicons/react/24/outline'
-import { MobileMenu } from './MobileMenu'
-import { CustomButton, CustomLinkList } from '../common'
-import { AuthButton } from './AuthButton'
-import { NavigateProps } from '../../types'
-import { useDialog } from '../../hooks'
+import { CustomButton, CustomLinkList, MobileMenu, AuthButton } from '@/components'
+import { NavigateProps } from '@/types'
+import { useDialog } from '@/hooks'
 
 export const Header = ({ navigation }: { navigation: NavigateProps }) => {
   const { isOpen, openModal, closeModal } = useDialog()

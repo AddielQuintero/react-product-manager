@@ -1,9 +1,4 @@
-type TextareaProps = React.TextareaHTMLAttributes<HTMLTextAreaElement> & {
-  labelText?: string
-  labelClassName?: string
-  maxLength?: number
-  value?: string
-}
+import { TextareaProps } from "@/types"
 
 export const CustomTextArea = (props: TextareaProps): JSX.Element => {
   const textLength = props.value ? props.value.length : 0

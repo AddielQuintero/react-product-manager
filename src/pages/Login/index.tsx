@@ -1,8 +1,8 @@
 import { FormEventHandler, ChangeEventHandler, useState } from 'react'
 import { Navigate, useNavigate, useLocation } from 'react-router-dom'
 import { LockClosedIcon } from '@heroicons/react/20/solid'
-import { CustomButton, CustomInput, CustomSnackBar } from '../../components'
-import { useApp } from '../../context'
+import { CustomButton, CustomInput, CustomSnackBar } from '@/components'
+import { useApp } from '@/context'
 import { toast } from 'react-toastify'
 
 export const Login = () => {

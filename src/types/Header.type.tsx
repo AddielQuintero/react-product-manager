@@ -25,3 +25,9 @@ export interface TLink extends HandleClose {
 export interface TAuthButton extends HandleClose {
   className?: string
 }
+
+export const navigation: NavigateProps = [
+  { name: 'Home', to: '/', private: false },
+  { name: 'Product', to: '/product', private: false },
+  { name: 'Profile', to: '/profile', private: true },
+]

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
-import { TAddProduct, TProduct } from '../types'
-import { CustomSnackBar } from '../components'
+import { TAddProduct, TProduct } from '@/types'
+import { CustomSnackBar } from '@/components'
 
 // const BASE_URL = 'http://localhost:3000/data'
 const BASE_URL = 'https://json-server-router-dom.herokuapp.com/data'

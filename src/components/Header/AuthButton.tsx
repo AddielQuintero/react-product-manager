@@ -1,6 +1,6 @@
 import { NavLink } from 'react-router-dom'
-import { TAuthButton } from '../../types'
-import { useApp } from '../../context'
+import { TAuthButton } from '@/types'
+import { useApp } from '@/context'
 
 export const AuthButton = ({ className, handleClose }: TAuthButton) => {
   const app = useApp()

@@ -1,4 +1,4 @@
-type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement>
+import { ButtonProps } from "@/types"
 
 export const CustomButton = (props: ButtonProps): JSX.Element => {
   return (

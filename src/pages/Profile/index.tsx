@@ -1,4 +1,4 @@
-import { useApp } from '../../context'
+import { useApp } from '@/context'
 
 export const Profile = () => {
   const app = useApp()
