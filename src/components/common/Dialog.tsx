@@ -1,6 +1,6 @@
 import { Fragment } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
-import { CustomDialogProps } from '../../types'
+import { CustomDialogProps } from '@/types'
 
 export const CustomDialog = (props: CustomDialogProps): JSX.Element => {
   const { open, onClose, title, styles, children, className, transition } =

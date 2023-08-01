@@ -1,8 +1,7 @@
 import { NavLink } from 'react-router-dom'
 import { XMarkIcon } from '@heroicons/react/24/outline'
-import { CustomButton, CustomDialog, CustomLinkList } from '../common'
-import { AuthButton } from './AuthButton'
-import { MobileMenuProps, StylesProps, TransitionProps } from '../../types'
+import { CustomButton, CustomDialog, CustomLinkList, AuthButton } from '@/components'
+import { MobileMenuProps, StylesProps, TransitionProps } from '@/types'
 
 export const MobileMenu = (props: MobileMenuProps) => {
   const { navigation, open, onClose, closeModal } = props

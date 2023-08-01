@@ -1,4 +1,4 @@
-type FormProps = React.FormHTMLAttributes<HTMLFormElement>
+import { FormProps } from "@/types"
 
 export const CustomForm = (props: FormProps): JSX.Element => {
   return (

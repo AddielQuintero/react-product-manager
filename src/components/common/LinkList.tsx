@@ -1,6 +1,6 @@
 import { NavLink } from 'react-router-dom'
-import { useApp } from '../../context'
-import { TLink } from '../../types'
+import { useApp } from '@/context'
+import { TLink } from '@/types'
 
 export const CustomLinkList = ({ navigation, className, handleClose }: TLink) => {
   const app = useApp()

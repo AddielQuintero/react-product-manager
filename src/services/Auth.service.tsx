@@ -8,7 +8,7 @@ import {
   TUser,
   DefaultPermissions,
   verifyPermission,
-} from '../types'
+} from '@/types'
 
 export const AuthService = () => {
   const [user, setUser] = useState<TUser | null>(null)

@@ -1,5 +1,5 @@
 import React, { useState, ChangeEventHandler, useEffect } from 'react'
-import { CustomButton, CustomDialog, CustomForm, CustomInput, CustomTextArea } from '..'
+import { CustomButton, CustomDialog, CustomForm, CustomInput, CustomTextArea } from '@/components'
 import {
   DefaultFormValues,
   StylesProps,
@@ -9,9 +9,9 @@ import {
   TSelectCategory,
   TAddProduct,
   THandleSubmit,
-} from '../../types'
-import { useApp } from '../../context'
-import { generateSlug } from '../../utilities'
+} from '@/types'
+import { useApp } from '@/context'
+import { generateSlug } from '@/utilities'
 
 const styles: StylesProps = {
   dialog: 'fixed inset-0 overflow-y-auto',

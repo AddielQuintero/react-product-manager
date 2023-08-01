@@ -1,7 +1,7 @@
 import { ArrowLongLeftIcon, ArrowLongRightIcon, UserCircleIcon, ArrowTopRightOnSquareIcon } from '@heroicons/react/24/outline'
 import { Link } from 'react-router-dom'
-import { CustomTableProps, TProduct } from '../../types'
-import { FormatDate } from '../../utilities'
+import { CustomTableProps, TProduct } from '@/types'
+import { FormatDate } from '@/utilities'
 
 export const ProductTable = ({ headers, data }: CustomTableProps) => {
   // const createdAtDate = new Date(product.creationAt);

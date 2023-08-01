@@ -1,6 +1,6 @@
 import { NavLink } from 'react-router-dom'
-import { CustomLinkList } from '../common'
-import { NavigateProps } from '../../types'
+import { CustomLinkList } from '@/components'
+import { NavigateProps } from '@/types'
 
 export const Footer = ({ navigation }: { navigation: NavigateProps }) => {
   return (
