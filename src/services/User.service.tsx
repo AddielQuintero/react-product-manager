@@ -1,14 +1,11 @@
-import React, { useEffect, useState } from 'react'
 import { TUser } from '@/types'
 import axios from 'axios'
-
-// const BASE_URL = 'http://localhost:3000/users'
-const BASE_URL = 'https://json-server-router-dom.herokuapp.com/users'
+import { CONFIG } from '@config'
 
 class UserService {
   async getUser(userName: string): Promise<TUser> {
     try {
-      const { data } = await axios.get<TUser[]>(`${BASE_URL}?userName=${userName}`)
+      const { data } = await axios.get<TUser[]>(`${CONFIG.API_BASE}/users?userName=${userName}`)
       return data[0]
     } catch (error) {
       console.error(`UserError: ${error}`)
