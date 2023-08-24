@@ -12,8 +12,7 @@ export const App = () => {
           <Header navigation={navigation} />
 
           <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/product" element={<Product />} />
+            <Route path="/" element={<Product />} index />
             <Route path="/product/:slug" element={<ProductDetails />} />
             <Route path="/profile" element={<AuthRoute><Profile /></AuthRoute>}/>
             <Route path="/login" element={<Login />} />

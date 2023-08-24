@@ -30,15 +30,51 @@ export interface TAddProduct {
   slug: string
 }
 
-interface THeaders {
+export interface THeaders {
   name: string
   hideOnMobile: boolean
 }
 
-export interface CustomTableProps {
-  headers: THeaders[]
-  data: TProduct[]
+// export interface CustomTableProps {
+  // headers: THeaders[]
+  // data: TProduct[]
+  // getProducts: (page: number) => void
+// }
+
+export interface TResponse {
+  success: boolean
+  response: string
 }
+
+// export interface Response {
+//   config: {}
+//   data: []
+//   headers: {
+//     link: string
+//   }
+//   request: {}
+//   status: {}
+//   statusText: {}
+// }
+
+export const DefaultResponse: TResponse = {
+  success: false,
+  response: '',
+}
+
+// export interface TLink {
+//   first: {}
+//   last: {}
+//   prev: {}
+//   next: {}
+// }
+
+// export const DefaultLink = {
+//   first: {},
+//   last: {},
+//   prev: {},
+//   next: {},
+// }
 
 export interface TProduct extends TIdProduct, TAddProduct {}
 

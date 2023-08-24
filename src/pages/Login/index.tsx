@@ -6,7 +6,7 @@ import { useApp } from '@/context'
 import { toast } from 'react-toastify'
 
 export const Login = () => {
-  const [userName, setUserName] = useState('')
+  const [userName, setUserName] = useState('admin')
   const [password, setPassword] = useState('')
   const navigate = useNavigate()
   const location = useLocation()
