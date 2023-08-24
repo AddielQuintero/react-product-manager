@@ -1,10 +1,12 @@
-import { ArrowLongLeftIcon, ArrowLongRightIcon, UserCircleIcon, ArrowTopRightOnSquareIcon } from '@heroicons/react/24/outline'
+import { UserCircleIcon, ArrowTopRightOnSquareIcon } from '@heroicons/react/24/outline'
 import { Link } from 'react-router-dom'
-import { CustomTableProps, TProduct } from '@/types'
+import { THeaders, TProduct } from '@/types'
 import { FormatDate } from '@/utilities'
+import { CustomPagination } from '@/components'
+import { useApp } from '@/context'
 
-export const ProductTable = ({ headers, data }: CustomTableProps) => {
-  // const createdAtDate = new Date(product.creationAt);
+export const ProductTable = ({ headers }: { headers: THeaders[] }) => {
+  const { products, getProducts } = useApp()
 
   return (
     <>
@@ -28,7 +30,7 @@ export const ProductTable = ({ headers, data }: CustomTableProps) => {
                 </tr>
               </thead>
               <tbody className="bg-white divide-y divide-gray-200 ">
-                {data.map((product: TProduct) => (
+                {products.map((product: TProduct) => (
                   <tr key={product.id}>
                     <td className="px-1 md:px-2 lg:px-3 py-2 text-sm text-gray-400 whitespace-nowrap hidden lg:table-cell">
                       {product.id}
@@ -61,7 +63,7 @@ export const ProductTable = ({ headers, data }: CustomTableProps) => {
                     </td>
                     <td className="px-1 md:px-2 lg:px-3 py-2 text-sm text-gray-500 whitespace-nowrap">
                       <div className="flex items-center gap-x-2">
-                        <Link to={product.slug}>
+                        <Link to={`/product/${product.slug}`}>
                           <ArrowTopRightOnSquareIcon className="h-5 w-6" aria-hidden="true" />
                         </Link>
                       </div>
@@ -73,47 +75,7 @@ export const ProductTable = ({ headers, data }: CustomTableProps) => {
           </div>
         </div>
       </div>
-      <div className="flex items-center justify-between my-6">
-        <a
-          href="#"
-          className="flex items-center px-5 py-2 text-sm text-gray-500 font-medium capitalize transition-colors duration-200 rounded-md gap-x-2 hover:bg-gray-100"
-        >
-          <ArrowLongLeftIcon className="h-6 w-6" aria-hidden="true" />
-          <span>previous</span>
-        </a>
-
-        <div className="items-center hidden md:flex gap-x-3">
-          <a href="#" className="px-2 py-1 text-sm text-blue-500 rounded-md bg-blue-100/60">
-            1
-          </a>
-          <a href="#" className="px-2 py-1 text-sm text-gray-500 rounded-md hover:bg-gray-100">
-            2
-          </a>
-          <a href="#" className="px-2 py-1 text-sm text-gray-500 rounded-md hover:bg-gray-100">
-            3
-          </a>
-          <a href="#" className="px-2 py-1 text-sm text-gray-500 rounded-md hover:bg-gray-100">
-            ...
-          </a>
-          <a href="#" className="px-2 py-1 text-sm text-gray-500 rounded-md hover:bg-gray-100">
-            12
-          </a>
-          <a href="#" className="px-2 py-1 text-sm text-gray-500 rounded-md hover:bg-gray-100">
-            13
-          </a>
-          <a href="#" className="px-2 py-1 text-sm text-gray-500 rounded-md hover:bg-gray-100">
-            14
-          </a>
-        </div>
-
-        <a
-          href="#"
-          className="flex items-center px-5 py-2 text-sm text-gray-500 font-medium capitalize transition-colors duration-200 rounded-md gap-x-2 hover:bg-gray-100"
-        >
-          <span>Next</span>
-          <ArrowLongRightIcon className="h-6 w-6" aria-hidden="true" />
-        </a>
-      </div>
+      <CustomPagination getProducts={getProducts} />
     </>
   )
 }

@@ -1,6 +1,13 @@
-#root {
+// #root {
   // max-width: 1280px;
   // margin: 0 auto;
   // padding: 2rem;
   // text-align: center;
+// }
+
+ul.react-paginate li.previous a div,
+ul.react-paginate li.next a div,
+ul.react-paginate li.break a div {
+  column-gap: 0.75rem;
+  align-items: center;
 }
