@@ -27,7 +27,7 @@ export interface TAuthButton extends HandleClose {
 }
 
 export const navigation: NavigateProps = [
-  { name: 'Home', to: '/', private: false },
-  { name: 'Product', to: '/product', private: false },
+  // { name: 'Home', to: '/', private: false },
+  { name: 'Product', to: '/', private: false },
   { name: 'Profile', to: '/profile', private: true },
 ]
