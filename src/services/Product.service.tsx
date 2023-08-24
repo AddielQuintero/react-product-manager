@@ -1,23 +1,21 @@
-import React, { useEffect, useState } from 'react'
+import { useState } from 'react'
 import axios from 'axios'
-import { TAddProduct, TProduct } from '@/types'
+import { TAddProduct, TProduct, TResponse } from '@/types'
 import { CONFIG } from '@config'
 
 export const ProductService = () => {
   const [products, setProducts] = useState<TProduct[]>([])
 
-  useEffect(() => {
-    const getProducts = async () => {
-      try {
-        const { data } = await axios.get(`${CONFIG.API_BASE}/data?_page=46&_limit=5`)
-        setProducts(data)
-      } catch (error) {
-        console.error(`Error in getProduct ${error}`)
-      }
+  const getProducts = async (page = 0): Promise<TResponse> => {
+    try {
+      const response = await axios.get(`${CONFIG.API_BASE}/data?_page=${page}`)
+      setProducts(response.data)
+      return { success: true, response: response.headers.link }
+    } catch (error) {
+      console.error(`Error in getProduct ${error}`)
+      return { success: false, response: '' }
     }
-
-    getProducts().then()
-  }, [])
+  }
 
   const addProduct = async (newProduct: TAddProduct) => {
     try {
@@ -50,7 +48,7 @@ export const ProductService = () => {
     }
   }
 
-  return { products, addProduct, deleteProduct, updateProduct }
+  return { products, getProducts, addProduct, deleteProduct, updateProduct }
 }
 
 // export const ProductService = () => {

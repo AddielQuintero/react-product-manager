@@ -1,5 +1,5 @@
 import { DefaultAuthConfigItem, TAuthConfigItem } from './Auth.type'
-import { TAddProduct, TProduct } from './Product.type'
+import { DefaultResponse, TAddProduct, TProduct, TResponse } from './Product.type'
 import { DefaultPermissions, TPermissions, TUser } from './User.type'
 
 export interface AppChildrenProps {
@@ -11,6 +11,7 @@ export interface TAppContext {
   permissions: TPermissions
   AuthConfigItem: TAuthConfigItem
   products: TProduct[]
+  getProducts: (page: number) => Promise<TResponse>
   login: (userName: string) => void
   logout: () => void
   handleAddProduct: (newProduct: TAddProduct) => void
@@ -25,7 +26,8 @@ export const DefaultContext = {
   AuthConfigItem: DefaultAuthConfigItem,
   login: () => {},
   logout: () => {},
-  handleAddProduct: () => {},
+  getProducts: () => Promise.resolve(DefaultResponse),
+  handleAddProduct: () => {} ,
   handleDeleteProduct: () => {},
   handleUpdateProduct: () => {},
 }

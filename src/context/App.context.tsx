@@ -7,7 +7,7 @@ const AppContext = createContext<TAppContext>(DefaultContext)
 
 const AppProvider = ({ children }: AppChildrenProps) => {
   const { user, permissions, AuthConfigItem, login, logout } = AuthService()
-  const { products, addProduct, deleteProduct, updateProduct } = ProductService()
+  const { products, getProducts, addProduct, deleteProduct, updateProduct } = ProductService()
 
   const handleAddProduct = (newProduct: TAddProduct) => {
     addProduct(newProduct).then()
@@ -26,6 +26,7 @@ const AppProvider = ({ children }: AppChildrenProps) => {
     permissions,
     products,
     AuthConfigItem,
+    getProducts,
     login,
     logout,
     handleAddProduct,

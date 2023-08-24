@@ -1,12 +1,10 @@
-import { useApp } from '@/context'
 import { CustomButton, ProductTable } from '@/components'
 import { PlusSmallIcon, FunnelIcon } from '@heroicons/react/24/outline'
-import { ProductDialog } from '@/components/Product/ProductDialog'
+import { ProductDialog } from '@/components'
 import { useDialog } from '@/hooks'
 
 export const Product = () => {
   const { isOpen, openModal, closeModal } = useDialog()
-  const { products } = useApp()
 
   const headers = [
     { name: 'ID', hideOnMobile: true },
@@ -43,7 +41,7 @@ export const Product = () => {
           </div>
         </div>
         <div>
-          <ProductTable headers={headers} data={products} />
+          <ProductTable headers={headers} />
         </div>
       </section>
 
