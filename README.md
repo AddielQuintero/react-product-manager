@@ -2,7 +2,7 @@
 
 This is a [React](https://react.dev/) project bootstrapped with [`npm create vite@latest`](https://vitejs.dev/), [Typescript](https://www.typescriptlang.org/), and [Tailwind](https://tailwindcss.com/) to implement a navigation system in a React.js application using React Router.
 
-See project in https://react-router-navigation.vercel.app/
+See project in https://react-product-manager-app.vercel.app/
 
 ## Installation
 
